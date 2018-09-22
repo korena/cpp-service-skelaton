@@ -9,8 +9,12 @@
 #include "mathFunctions.h"
 #endif
 
+#include "Cms.hpp"
 
 int main(int argc, char *argv[]) {
+
+    helloWorld();
+
     std::cout << "Service version (" << SERVICE_VERSION_MAJOR << "." << SERVICE_VERSION_MINOR << ")" << std::endl;
     if (argc < 2) {
         fprintf(stdout, "Usage: %s number\n", argv[0]);

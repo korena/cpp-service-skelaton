@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-USAGE='Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr_PREFIX}'
+USAGE='Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr-util_PREFIX}'
 
 if [ -z "$1" ]; then
   echo "Missing CMAKE_CURRENT_BINARY_DIR (first argument)"
@@ -15,7 +15,7 @@ if [ -z "$2" ]; then
 fi
 
 CMAKE_CURRENT_BINARY_DIR=${1}
-Apr_PREFIX=${2}
+Apr_util_PREFIX=${2}
 
 # Deal with python setup (set to 2.7), this requires pyenv to be installed, cause it seems like the most reasonable
 # python version hell manager around these days ...
@@ -26,11 +26,11 @@ export PYENV_VERSION=2.7.10
 python --version
 
 # Run buildconfig as stated in documentation
-cd ${CMAKE_CURRENT_BINARY_DIR}/${Apr_PREFIX}/src/Apr
+cd "${CMAKE_CURRENT_BINARY_DIR}/${Apr_util_PREFIX}/src/Apr-util"
 
-${CMAKE_CURRENT_BINARY_DIR}/${Apr_PREFIX}/src/Apr/buildconf
+${CMAKE_CURRENT_BINARY_DIR}/${Apr_util_PREFIX}/src/Apr\-util/buildconf
 
 # Now run configure with all the stuff around it ...
-CC="gcc -m64" ${CMAKE_CURRENT_BINARY_DIR}/${Apr_PREFIX}/src/Apr/configure --prefix=${CMAKE_CURRENT_BINARY_DIR}/${Apr_PREFIX}
+CC="gcc -m64" ${CMAKE_CURRENT_BINARY_DIR}/${Apr_util_PREFIX}/src/Apr\-util/configure --prefix=${CMAKE_CURRENT_BINARY_DIR}/${Apr_util_PREFIX}
 
 exit 0

@@ -11,7 +11,7 @@ set (service_VERSION_INCREMENT 0)
 option (USE_MYMATH
         "Use service provided math implementation" ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
 add_executable( service Main.cpp)
 
@@ -34,8 +34,10 @@ target_include_directories( service PRIVATE "${PROJECT_BINARY_DIR}")
 # external (third party)
 # Apr
 add_subdirectory(third_party/Apr)
+# Apr-util
+add_subdirectory(third_party/Apr-util)
 # Activemq-cpp
-#add_subdirectory(third_party/activemq_cpp)
+add_subdirectory(third_party/Activemq_cpp)
 #gRPC
 #add_subdirectory(third_party/gRPC)
 
@@ -51,7 +53,7 @@ endif (USE_MYMATH)
 
 # The OPT_LIBS will expose their include dirs, so they can be included in Main.cpp (as long as they're public),
 # so we don't need to specify the include directories explicitly here
-target_link_libraries( service ${OPT_LIBS})
+target_link_libraries( service ${OPT_LIBS} cms)
 
 
 # add the install targets
