@@ -1,0 +1,11 @@
+#ifndef SERVICECONFIG_H
+#define SERVICECONFIG_H
+
+// the configured options and settings for Service
+#define SERVICE_VERSION_MAJOR @service_VERSION_MAJOR@
+#define SERVICE_VERSION_MINOR @service_VERSION_MINOR@
+
+// define internal mathFunctions usage
+#cmakedefine USE_MYMATH
+
+#endif //SERVICECONFIG_H
