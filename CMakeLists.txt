@@ -6,13 +6,34 @@ set (service_VERSION_MAJOR 1)
 set (service_VERSION_MINOR 0)
 set (service_VERSION_INCREMENT 0)
 
+# should we force third party libraries build? (defaults to NO)
+option(FORCE_THIRD_PARTY_BUILD "Force build of third party libraries" NO)
 
 # should we use our own math functions?
 option (USE_MYMATH
         "Use service provided math implementation" ON)
 
+
 set(CMAKE_CXX_STANDARD 14)
 
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/modules)
+
+
+if((NOT EXISTS "${CMAKE_BINARY_DIR}/third_party/LoadPrefixPath.cmake") OR ("${FORCE_THIRD_PARTY_BUILD}"))
+    # execute another process to configure all third party libraries
+    execute_process(
+            COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -G ${CMAKE_GENERATOR} -H. -B${CMAKE_BINARY_DIR}/third_party
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/third_party)
+    # execute another process to build all third party libraries (only if we don't have them!)
+    execute_process(
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}/third_party
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/third_party)
+else((NOT EXISTS "${CMAKE_BINARY_DIR}/third_party/LoadPrefixPath.cmake") OR ("${FORCE_THIRD_PARTY_BUILD}"))
+    message( WARNING "Skipping third party libraries configuration and build, check FORCE_THIRD_PARTY_BUILD in the root CMakeLists.txt if this isn't what you expect.")
+endif((NOT EXISTS "${CMAKE_BINARY_DIR}/third_party/LoadPrefixPath.cmake") OR ("${FORCE_THIRD_PARTY_BUILD}"))
+
+# loading stuff to CMAKE_PREFIX_PATH from third party configuration and build results
+include(${CMAKE_BINARY_DIR}/third_party/LoadPrefixPath.cmake)
 add_executable( service Main.cpp)
 
 #[=[
@@ -26,23 +47,13 @@ configure_file (
 
 #[=[
  Add the binary tree to the search path for include files
- so that we will find TutorialConfig.h
+ so that we will find ServiceConfig.h
 #]=]
 target_include_directories( service PRIVATE "${PROJECT_BINARY_DIR}")
 
-
-# external (third party)
-# Apr
-add_subdirectory(third_party/Apr)
-# Apr-util
-add_subdirectory(third_party/Apr-util)
-# Activemq-cpp
-add_subdirectory(third_party/Activemq_cpp)
-#gRPC
-#add_subdirectory(third_party/gRPC)
-
-
+# internal project modules (sources .. mine)
 add_subdirectory(src/cms)
+add_subdirectory(src/rpc)
 # add the MathFunctions library?
 #
 if (USE_MYMATH)

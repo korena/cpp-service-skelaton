@@ -37,14 +37,14 @@ ExternalProject_Add_Step(Apr-util chmodInstall
         DEPENDEES download # run chmodConfig after download
         )
 
-ExternalProject_Get_Property(Apr-util install_dir)
-
-message(STATUS "Setting Apr-util properties to be shared ...")
-# Set your own properties you useless c word.
-file(GLOB Apr-util_LIBRARIES ${install_dir}/lib/*.a ${install_dir}/lib/*.dylib)
-
-
-set_target_properties( Apr-util
-        PROPERTIES
-        Apr-util_INCLUDE_DIRS "${install_dir}/include/apr-1"
-        Apr-util_LIBRARIES "${Apr-util_LIBRARIES}")
+#ExternalProject_Get_Property(Apr-util install_dir)
+#
+#message(STATUS "Setting Apr-util properties to be shared ...")
+## Set your own properties you useless c word.
+#file(GLOB Apr-util_LIBRARIES ${install_dir}/lib/*.a ${install_dir}/lib/*.dylib)
+#
+#
+#set_target_properties( Apr-util
+#        PROPERTIES
+#        Apr-util_INCLUDE_DIRS "${install_dir}/include/apr-1"
+#        Apr-util_LIBRARIES "${Apr-util_LIBRARIES}")

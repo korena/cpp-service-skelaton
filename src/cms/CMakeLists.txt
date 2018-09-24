@@ -2,29 +2,30 @@
 
 add_library(cms Cms.cpp HelloWorldConsumer.cpp HelloWorldProducer.cpp)
 
-# This is so I won't have to use find_package and all that crap
-add_dependencies(cms Activemq-cpp)
+find_package(OpenSSL REQUIRED)
+find_package(APR MODULE REQUIRED)
+find_package(ACTIVEMQCPP MODULE REQUIRED)
 
-#Apr
-get_target_property(Apr_INCLUDE_DIRS Apr Apr_INCLUDE_DIRS)
-get_target_property(Apr_LIBRARIES Apr Apr_LIBRARIES)
-#Apr-util
-get_target_property(Apr-util_INCLUDE_DIRS Apr-util Apr-util_INCLUDE_DIRS)
-get_target_property(Apr-util_LIBRARIES Apr-util Apr-util_LIBRARIES)
-# Activemq-cpp
-get_target_property(Activemq-cpp_INCLUDE_DIRS Activemq-cpp Activemq-cpp_INCLUDE_DIRS)
-get_target_property(Activemq-cpp_LIBRARIES Activemq-cpp Activemq-cpp_LIBRARIES)
+if (NOT ACTIVEMQCPP_FOUND)
+    message(FATAL_ERROR "Package ACTIVEMQCPP not found")
+endif (NOT ACTIVEMQCPP_FOUND)
+
+if (NOT APR_FOUND)
+    message(FATAL_ERROR "Package APR not found")
+endif (NOT APR_FOUND)
+
+if( OpenSSL_FOUND )
+    include_directories(${OPENSSL_INCLUDE_DIRS})
+    link_directories(${OPENSSL_LIBRARIES})
+    message(STATUS "Using OpenSSL ${OPENSSL_VERSION}")
+endif (OpenSSL_FOUND)
 
 target_include_directories(cms
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-        PUBLIC ${Activemq-cpp_INCLUDE_DIRS}
-        PUBLIC ${Apr_INCLUDE_DIRS})
+        PUBLIC ${ACTIVEMQCPP_INCLUDE_DIRS}
+        PUBLIC ${APR_INCLUDE_DIRS}
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-message(STATUS "Apr Include: ${Apr_INCLUDE_DIRS}")
-message(STATUS "Apr-util Include: ${Apr-util_INCLUDE_DIRS}")
-message(STATUS "Activemq-cpp Include: ${Activemq-cpp_INCLUDE_DIRS}")
-message(STATUS "Apr libraries: ${Apr_LIBRARIES}")
-message(STATUS "Apr-util libraries: ${Apr-util_LIBRARIES}")
-message(STATUS "Activemq-cpp libraries: ${Activemq-cpp_LIBRARIES}")
-
-target_link_libraries(cms ${Apr_LIBRARIES} ${Activemq-cpp_LIBRARIES} ${Apr-util_LIBRARIES})
+target_link_libraries(cms
+        ${ACTIVEMQCPP_LIBRARIES}
+        ${APR_LIBRARIES}
+        ${OPENSSL_LIBRARIES})

@@ -1,10 +1,5 @@
 include(ExternalProject)
 
-# third party libraries install directory
-# Note: For all external dependencies, instead of using checked-out code, one could
-# specify GIT_REPOSITORY and GIT_TAG to have cmake download the dependency directly,
-# without needing to add a submodule to your project.
-
 ExternalProject_Add(c-ares
   PREFIX c-ares
   GIT_REPOSITORY https://github.com/c-ares/c-ares.git
@@ -13,7 +8,7 @@ ExternalProject_Add(c-ares
         -DCARES_SHARED:BOOL=OFF
         -DCARES_STATIC:BOOL=ON
         -DCARES_STATIC_PIC:BOOL=ON
-        -DCMAKE_INSTALL_PREFIX:PATH=c-ares
+        -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/c-ares
 )
 
 # Builds protobuf project from the git submodule.
@@ -26,7 +21,7 @@ ExternalProject_Add(protobuf
         -Dprotobuf_BUILD_TESTS:BOOL=OFF
         -Dprotobuf_WITH_ZLIB:BOOL=OFF
         -Dprotobuf_MSVC_STATIC_RUNTIME:BOOL=OFF
-        -DCMAKE_INSTALL_PREFIX:PATH=protobuf
+        -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/protobuf
 )
 
 # Builds zlib project from the git submodule.
@@ -35,15 +30,12 @@ ExternalProject_Add(zlib
   GIT_REPOSITORY https://github.com/madler/zlib.git
   GIT_TAG cacf7f1d4e
   CMAKE_CACHE_ARGS
-        -DCMAKE_INSTALL_PREFIX:PATH=${THIRD_PARTY_INST_DIR}/zlib
+        -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/zlib
 )
 
 # the location where protobuf-config.cmake will be installed varies by platform
-if (WIN32)
-  set(_FINDPACKAGE_PROTOBUF_CONFIG_DIR "${THIRD_PARTY_INST_DIR}/protobuf/cmake")
-else()
-  set(_FINDPACKAGE_PROTOBUF_CONFIG_DIR "${THIRD_PARTY_INST_DIR}/protobuf/lib/cmake/protobuf")
-endif()
+set(_FINDPACKAGE_PROTOBUF_CONFIG_DIR "${CMAKE_CURRENT_BINARY_DIR}/protobuf/lib/cmake/protobuf")
+
 
 # Builds gRPC and set arguments so that all the dependencies
 # are correctly located.
@@ -60,20 +52,37 @@ ExternalProject_Add(grpc
         -DgRPC_ZLIB_PROVIDER:STRING=package
         -DZLIB_ROOT:STRING=zlib
         -DgRPC_CARES_PROVIDER:STRING=package
-        -Dc-ares_DIR:PATH=c-ares/lib/cmake/c-ares
+        -Dc-ares_DIR:PATH=${CMAKE_CURRENT_BINARY_DIR}/c-ares/lib/cmake/c-ares
         -DgRPC_SSL_PROVIDER:STRING=package
         ${_CMAKE_ARGS_OPENSSL_ROOT_DIR}
-        -DCMAKE_INSTALL_PREFIX:PATH=grpc
+        -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/grpc
   DEPENDS c-ares protobuf zlib
 )
 
 
-# You can now build the actual application itself as an external project using a CMakeLists.txt that assumes all the dependencies
-# have already been installed.
+# protobuf
+ExternalProject_Get_Property(protobuf install_dir)
+set(protobuf_INST_PREFIX "${install_dir}")
+set_target_properties( protobuf
+        PROPERTIES
+        protobuf_INSTALL_PREFIX "${protobuf_INST_PREFIX}")
 
-# If we wanted to reuse the targets exported by gRPC and protobuf, we could have built analyzer application
-# here, as another ExternalProject_Add, but we know that analyzer application is not really an external 
-# project, but the actual executable that we expect, so we're not going to do that, instead, we will 
-# keep this CMakeLists.txt file to handle all the really external stuff that we depend on, and we'll manually
-# import the ${THIRD_PARTY_INST_DIR}/{grpc,protobuf} dependencies in the CMakeLists.txt file that lives in 
-# src directory, because that makes more sense .. structurally. 
+#zlib (internal, not system one ma!)
+ExternalProject_Get_Property(zlib install_dir)
+set(zlib_INST_PREFIX "${install_dir}")
+set_target_properties( zlib
+        PROPERTIES
+        zlib_INSTALL_PREFIX "${zlib_INST_PREFIX}")
+# c-ares
+ExternalProject_Get_Property(c-ares install_dir)
+set(c-ares_INST_PREFIX "${install_dir}")
+set_target_properties( c-ares
+        PROPERTIES
+        c-ares_INSTALL_PREFIX "${c-ares_INST_PREFIX}")
+
+# gRPC
+ExternalProject_Get_Property(grpc install_dir)
+set(grpc_INST_PREFIX "${install_dir}")
+set_target_properties( grpc
+        PROPERTIES
+        grpc_INSTALL_PREFIX "${grpc_INST_PREFIX}")

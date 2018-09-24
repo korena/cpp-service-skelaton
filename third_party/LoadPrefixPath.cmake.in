@@ -1,0 +1,6 @@
+LIST(APPEND CMAKE_PREFIX_PATH
+        "@protobuf_INSTALL_PREFIX@"
+        "@c-ares_INSTALL_PREFIX@"
+        "@zlib_INSTALL_PREFIX@"
+        "@grpc_INSTALL_PREFIX@"
+        )
