@@ -30,12 +30,12 @@ All third party libraries are built using CMake's ExternalProject, regardless of
 not, because ExternalProject is an extraordinary tool. So here are the steps:
 
 ## 1. Directory, you must create
-Create a directory in `third_party/` to host everything you need to actually build that library. This will not host the
-the source code of your library, never include source code that is not yours in the repository, instead, right logic in
-your library's specific build instructions to fetch it from somewhere,
+Create a directory in `third_party/` to host everything you need to actually build that library. This will not host
+the source code of your library, never include source code that is not yours in the repository, instead, write logic in
+your library's specific build instructions to fetch it from somewhere.
 
 ## 2. CMakeLists.txt file, you must write
-Create a CMakeLists.txt file in your library's directory, and write your externalProject commands to build it, you
+Create a CMakeLists.txt file in the library's directory, and write your externalProject commands to build it, you
 can see `third_party/gRPC/CMakeLists.txt` for an example of a CMake friendly library, and 
 `third_party/Activemq_cpp/CMakeLists.txt` for an ugly autoconf example. You're not limited to this, but understanding 
 both those examples should lead you anywhere you want to go, with a bit of CMake RTFM-ing of course.
@@ -50,7 +50,7 @@ instructions.
 Depending on your library's friendliness to CMake:
 
 ### 4.1 CMake unfriendly library
- If your library is not CMake friendly, you need to write a Find${LibraryName}Module.cmake and place it in the 
+ If your library is not CMake friendly, you need to write a `Find${LibraryName}Module.cmake` and place it in the 
 `modules/` directory so your source code can locate it later using `find_package(LibraryName MODULE)`, you can check
 the examples that are already there for Apr and Activemq-cpp libraries.
 

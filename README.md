@@ -5,12 +5,12 @@ other services using remote procedure calls over http, as well as messaging queu
 
 # What's implemented?
 
-- gRPC for RPC communication (Server and Client)
+- gRPC for RPC communication (server and client)
 - Activemq-cpp for messaging queues communication (consumer and producer)
 
 # Build system?
 
-CMake is used as the build system, building the project is pretty standard, but the build system is used in a way that 
+CMake is used as the build system builder, building the project is pretty standard, but the build system is used in a way that 
 isn't the standard way it's designed to be used, because I followed a few dogmatic beliefs of mine.
 
 ## General build process structure
@@ -34,13 +34,14 @@ the process of building the whole project is no different than building regular 
 because of some trickery in the way the build works, you simply create your build directory, cd into it, and run:
 
 ```bash
-cmake -dCMAKE_BUILD_TYPE=${BUILD-TYPE} ${path-to-cpp-service-skeleton-source}
+cmake -DCMAKE_BUILD_TYPE=${BUILD-TYPE} ${path-to-cpp-service-skeleton-source}
 ```
 
-This will take a serious amount of time (go make yourself a cup of coffee and drink it kind of serious) the first 
-time you build, because it will download the internet, and build the third party libraries used to support basic
-communication stuff, but once you've done that, you will no longer need to do that unless you decide to do so (There's
-a boolean variable called FORCE_THIRD_PARTY_BUILD that you can set at the top of the root CMakeLists.txt file).
+This will take a serious amount of time (go make yourself a cup of coffee and drink it kind of serious, like 40 minutes
+on a maxed out specs 2017 Macbook pro) the first time you build, because it will download the internet, and build the 
+third party libraries used to support basic communication stuff, but once you've done that, you will no longer need to 
+do it for subsequent builds unless you decide to do so (There's a boolean variable called FORCE_THIRD_PARTY_BUILD 
+that you can set at the top of the root CMakeLists.txt file).
 
 Examples for using both Activemq-cpp and gRPC are part of the source code.
 
@@ -48,14 +49,14 @@ Examples for using both Activemq-cpp and gRPC are part of the source code.
 
 - I'd like to avoid having to treat my own code as an external project.
 - I'd like to avoid having to maintain external library source code as submodules within my own codebase.
-- I do not accept installing third libraries that are really specific to my project independently, the project
-is using a build system, it's the build system's responsibility to manage the dependencies of the project it's managing,
-not mine.
+- I do not accept installing third party libraries that are really specific to my project independently, the project
+is using a build system builder, it's the build system's responsibility to manage the dependencies of the project it's 
+managing, not mine.
 - I want the project to have the basic infrastructure to build/include it's own dependencies independent of the machine
-on which it's being developed, if it works on my work computer by running a simple cmake build command,
+on which it's being developed (there are exceptions here .. some dependencies are expected to be installed on the machine, 
+such as openssl and some other libraries), if it works on my work computer by running a simple cmake build command,
 it should work the exact same way on my home computer, that's limited to Unix of course, cause none of my machines runs 
-Windows (there are exceptions here .. some dependencies are expected to be installed on the machine, 
-such as openssl and some other libraries)
+Windows.
 
 # How do I add a third party dependency?
 
