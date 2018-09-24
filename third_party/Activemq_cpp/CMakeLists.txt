@@ -3,6 +3,8 @@
 
 include(ExternalProject)
 
+set(CMAKE_CXX_STANDARD 14)
+
 set(Activemq-cpp_PREFIX 3.9.4)
 
 ExternalProject_Add(Activemq-cpp
@@ -16,7 +18,7 @@ ExternalProject_Add(Activemq-cpp
         INSTALL_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/install_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}
         # For some unknown reason (to me),
         # the following line disables the annoying "rebuild regardless of sh*t" attitude of ExternalProject"
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/${Activemq-cpp_PREFIX}
+        CMAKE_CACHE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/${Activemq-cpp_PREFIX}
         DEPENDS Apr Apr-util
         )
 
@@ -39,17 +41,3 @@ ExternalProject_Add_Step(Activemq-cpp chmodInstall
         COMMENT "chmod +x *.sh files to prepare for installation"
         DEPENDEES download # run chmodConfig after download
         )
-
-ExternalProject_Get_Property(Activemq-cpp install_dir)
-
-message(STATUS "Setting Activemq-cpp properties to be shared ...")
-# Set your own properties you useless c word.
-
-file(GLOB_RECURSE LIBRARIES ${install_dir}/lib/*.a ${install_dir}/lib/*.dylib )
-
-set(Activemq-cpp_INCLUDE_DIRS ${install_dir}/include/activemq-cpp-${Activemq-cpp_PREFIX})
-
-set_target_properties( Activemq-cpp
-        PROPERTIES
-        Activemq-cpp_INCLUDE_DIRS "${Activemq-cpp_INCLUDE_DIRS}"
-        Activemq-cpp_LIBRARIES "${LIBRARIES}")

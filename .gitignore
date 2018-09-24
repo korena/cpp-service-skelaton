@@ -2,3 +2,6 @@
 cmake-*
 # ignore .idea configurations (should I?)
 .idea
+
+# macos stupidity
+.DS_Store
