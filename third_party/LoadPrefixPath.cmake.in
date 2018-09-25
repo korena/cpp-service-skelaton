@@ -4,3 +4,9 @@ LIST(APPEND CMAKE_PREFIX_PATH
         "@zlib_INSTALL_PREFIX@"
         "@grpc_INSTALL_PREFIX@"
         )
+
+# Apr library install root dir
+set ( APR_ROOT_DIR "@Apr_INSTALL_PREFIX@")
+
+# Activemq-cpp library install root dir
+set ( ACTIVEMQCPP_ROOT_DIR "@Activemq-cpp_INSTALL_PREFIX@")

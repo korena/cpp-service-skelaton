@@ -16,6 +16,9 @@ get_target_property(zlib_INSTALL_PREFIX zlib zlib_INSTALL_PREFIX)
 get_target_property(c-ares_INSTALL_PREFIX c-ares c-ares_INSTALL_PREFIX)
 get_target_property(grpc_INSTALL_PREFIX grpc grpc_INSTALL_PREFIX)
 
+get_target_property(Apr_INSTALL_PREFIX Apr Apr_INSTALL_PREFIX)
+get_target_property(Activemq-cpp_INSTALL_PREFIX Activemq-cpp Activemq-cpp_INSTALL_PREFIX)
+
 configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/LoadPrefixPath.cmake.in"
         "${CMAKE_CURRENT_BINARY_DIR}/LoadPrefixPath.cmake")

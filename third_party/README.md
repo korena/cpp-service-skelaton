@@ -54,6 +54,15 @@ Depending on your library's friendliness to CMake:
 `modules/` directory so your source code can locate it later using `find_package(LibraryName MODULE)`, you can check
 the examples that are already there for Apr and Activemq-cpp libraries.
 
+In the existing examples, you can see a variable being used in the `modules/` directory find scripts, something like
+`<some-name>_ROOT_DIR`, these are delivered to the find script in the following way:
+1. `third_party/<library-directory>/CMakeLists.txt` file exports the `install_dir` of the library in question
+2. `third_party/CMakeLists.txt` file uses `get_target_property` to fetch the exported `install_dir` variable from the 
+library target.
+3. `LoadPrefixPath.cmake.in` script contains calls to `set(...)` command for each library, which defines the
+`<some-name>_ROOT_DIR` variable.
+4. That variable is then referenced in the find script.
+
 ### 4.2 CMake friendly library
 If your library is CMake friendly, it will produce some sort of a config/module file that can be used by
 find_package family of commands.

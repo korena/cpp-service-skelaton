@@ -1,12 +1,10 @@
 # Apache Portable Runtime
 
-set (APR_ROOT_DIR /usr/local/opt/apr/libexec)
-
 find_path(APR_INCLUDE_DIR
         NAMES apr_pools.h
         PATHS ${APR_ROOT_DIR}/include/apr-1)
 
-find_library(APR_LIBRARY 
+find_library(APR_LIBRARY
         NAMES libapr-1.a apr.exp libapr-1.0.dylib libapr-1.a libapr-1.dylib
         PATHS ${APR_ROOT_DIR}/lib SHARED IMPORTED GLOBAL)
 
@@ -20,7 +18,7 @@ if (APR_FOUND)
     set(APR_INCLUDE_DIRS ${APR_INCLUDE_DIR} )
     set(APR_DEFINITIONS )
 else ()
-  MESSAGE(STATUS "APR NOT FOUND")
+    MESSAGE(STATUS "APR NOT FOUND")
 endif ()
 
 mark_as_advanced(APR_ROOT_DIR APR_INCLUDE_DIR APR_LIBRARY)

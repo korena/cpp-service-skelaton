@@ -41,3 +41,10 @@ ExternalProject_Add_Step(Activemq-cpp chmodInstall
         COMMENT "chmod +x *.sh files to prepare for installation"
         DEPENDEES download # run chmodConfig after download
         )
+
+# Activemq-cpp
+ExternalProject_Get_Property(Activemq-cpp install_dir)
+set(Activemq-cpp_INST_PREFIX "${install_dir}")
+set_target_properties( Activemq-cpp
+        PROPERTIES
+        Activemq-cpp_INSTALL_PREFIX "${Activemq-cpp_INST_PREFIX}")

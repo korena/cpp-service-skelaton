@@ -29,7 +29,7 @@ if((NOT EXISTS "${CMAKE_BINARY_DIR}/third_party/LoadPrefixPath.cmake") OR ("${FO
             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}/third_party
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/third_party)
 else((NOT EXISTS "${CMAKE_BINARY_DIR}/third_party/LoadPrefixPath.cmake") OR ("${FORCE_THIRD_PARTY_BUILD}"))
-    message( WARNING "Skipping third party libraries configuration and build, check FORCE_THIRD_PARTY_BUILD in the root CMakeLists.txt if this isn't what you expect.")
+    message( WARNING "Skipping third party libraries configuration and build, check FORCE_THIRD_PARTY_BUILD (current value is: ${FORCE_THIRD_PARTY_BUILD}) in the root CMakeLists.txt if this isn't what you expect.")
 endif((NOT EXISTS "${CMAKE_BINARY_DIR}/third_party/LoadPrefixPath.cmake") OR ("${FORCE_THIRD_PARTY_BUILD}"))
 
 # loading stuff to CMAKE_PREFIX_PATH from third party configuration and build results

@@ -7,7 +7,7 @@
 
 find_path(ACTIVEMQCPP_INCLUDE_DIR
         NAMES decaf/lang/Thread.h
-        PATHS /usr/local/include/activemq-cpp-3.9.4)
+        PATHS ${ACTIVEMQCPP_ROOT_DIR}/include/activemq-cpp-3.9.4)
 
 find_library(ACTIVEMQCPP_LIBRARY NAMES libactivemq-cpp.a libactivemq-cpp.la libactivemq-cpp.dylib libactivemq-cpp.19.dylib SHARED IMPORTED GLOBAL)
 
@@ -21,7 +21,7 @@ if (ACTIVEMQCPP_FOUND)
     set(ACTIVEMQCPP_INCLUDE_DIRS ${ACTIVEMQCPP_INCLUDE_DIR} )
     set(ACTIVEMQCPP_DEFINITIONS )
 else ()
-  MESSAGE(STATUS "ACTIVEMQCPP NOT FOUND")
+    MESSAGE(STATUS "ACTIVEMQCPP NOT FOUND")
 endif ()
 
 mark_as_advanced(ACTIVEMQCPP_ROOT_DIR ACTIVEMQCPP_INCLUDE_DIR ACTIVEMQCPP_LIBRARY)

@@ -8,10 +8,14 @@ find_package(ACTIVEMQCPP MODULE REQUIRED)
 
 if (NOT ACTIVEMQCPP_FOUND)
     message(FATAL_ERROR "Package ACTIVEMQCPP not found")
+else(NOT ACTIVEMQCPP_FOUND)
+    message(STATUS "Using Activemq-cpp at ${ACTIVEMQCPP_ROOT_DIR}")
 endif (NOT ACTIVEMQCPP_FOUND)
 
 if (NOT APR_FOUND)
     message(FATAL_ERROR "Package APR not found")
+else (NOT APR_FOUND)
+    message(STATUS "Using Apr at ${APR_ROOT_DIR}")
 endif (NOT APR_FOUND)
 
 if( OpenSSL_FOUND )
