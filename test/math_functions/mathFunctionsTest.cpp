@@ -5,7 +5,7 @@
 namespace {
 
     TEST(SquareRootTest, BASIC) {
-        EXPECT_EQ(25, my)
+        EXPECT_EQ(5, mySqrt(25));
     }
 
 }  // namespace

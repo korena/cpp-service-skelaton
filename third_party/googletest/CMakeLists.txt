@@ -11,8 +11,7 @@ ExternalProject_Add(googletest
         )
 
 # googletest
-ExternalProject_Get_Property(googletest install_dir)
-set(googletest_INST_PREFIX "${install_dir}")
+set(googletest_INST_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/${googletest_PREFIX}")
 message(STATUS "googletest_INST_PREFIX : ${googletest_INST_PREFIX}")
 set_target_properties( googletest
         PROPERTIES

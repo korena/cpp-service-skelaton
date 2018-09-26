@@ -7,7 +7,7 @@ set (service_VERSION_MINOR 0)
 set (service_VERSION_INCREMENT 0)
 
 # should we force third party libraries build? (defaults to NO)
-SET(FORCE_THIRD_PARTY_BUILD ON)
+SET(FORCE_THIRD_PARTY_BUILD OFF)
 option(FORCE_THIRD_PARTY_BUILD "Force build of third party libraries" NO)
 
 # should we use our own math functions?
@@ -56,7 +56,7 @@ target_include_directories( service PRIVATE "${PROJECT_BINARY_DIR}")
 add_subdirectory(src/cms)
 add_subdirectory(src/rpc)
 # add the MathFunctions library?
-#
+
 if (USE_MYMATH)
     add_subdirectory(src/math_functions)
     set (OPT_LIBS ${OPT_LIBS} mathFunctions)
