@@ -7,6 +7,7 @@ set (service_VERSION_MINOR 0)
 set (service_VERSION_INCREMENT 0)
 
 # should we force third party libraries build? (defaults to NO)
+SET(FORCE_THIRD_PARTY_BUILD ON)
 option(FORCE_THIRD_PARTY_BUILD "Force build of third party libraries" NO)
 
 # should we use our own math functions?
@@ -61,6 +62,8 @@ if (USE_MYMATH)
     set (OPT_LIBS ${OPT_LIBS} mathFunctions)
 endif (USE_MYMATH)
 
+# invoke test build stuff
+include(test/setup.cmake)
 
 # The OPT_LIBS will expose their include dirs, so they can be included in Main.cpp (as long as they're public),
 # so we don't need to specify the include directories explicitly here

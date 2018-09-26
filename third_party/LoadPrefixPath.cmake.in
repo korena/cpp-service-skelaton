@@ -3,6 +3,7 @@ LIST(APPEND CMAKE_PREFIX_PATH
         "@c-ares_INSTALL_PREFIX@"
         "@zlib_INSTALL_PREFIX@"
         "@grpc_INSTALL_PREFIX@"
+        "@googletest_INSTALL_PREFIX@"
         )
 
 # Apr library install root dir
