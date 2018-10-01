@@ -10,6 +10,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Apr-util)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Activemq_cpp)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/gRPC)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/googletest)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/rapidJSON)
 
 # cmake friendly (LoadPrefixPath.cmake.in will update CMAKE_PREFIX_PATH for these)
 # gRPC
@@ -20,6 +21,9 @@ get_target_property(grpc_INSTALL_PREFIX grpc grpc_INSTALL_PREFIX)
 
 # gtest suite
 get_target_property(googletest_INSTALL_PREFIX googletest googletest_INSTALL_PREFIX)
+
+# rapidJSON
+get_target_property(rapidJSON_INSTALL_PREFIX rapidJSON rapidJSON_INSTALL_PREFIX)
 
 
 # cmake unfriendly (LoadPrefixPath.cmake.in will use set command for these)
