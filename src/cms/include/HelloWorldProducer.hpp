@@ -24,15 +24,15 @@ private:
  
 public:
  
-    HelloWorldProducer(const std::string& brokerURI, int numMessages, bool useTopic = false, bool sessionTransacted = false);
+    HelloWorldProducer(std::string  brokerURI, int numMessages, bool useTopic = false, bool sessionTransacted = false);
  
-    virtual ~HelloWorldProducer(){
+    ~HelloWorldProducer() override{
         cleanup();
     }
  
     void close();
  
-    virtual void run();
+    void run() override;
  
 private:
 

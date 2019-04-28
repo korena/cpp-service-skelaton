@@ -6,6 +6,10 @@ set (service_VERSION_MAJOR 1)
 set (service_VERSION_MINOR 0)
 set (service_VERSION_INCREMENT 0)
 
+# make flags are set here
+set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_RULE_MESSAGES:BOOL OFF)
+
 # should we force third party libraries build? (defaults to NO)
 SET(FORCE_THIRD_PARTY_BUILD OFF)
 option(FORCE_THIRD_PARTY_BUILD "Force build of third party libraries" NO)

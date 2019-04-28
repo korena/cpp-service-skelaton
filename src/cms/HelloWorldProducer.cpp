@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "./include/HelloWorldProducer.hpp"
 #include <activemq/library/ActiveMQCPP.h>
 #include <decaf/lang/Thread.h>
@@ -36,15 +38,15 @@ using namespace std;
     bool sessionTransacted;
     std::string brokerURI;
 
-    HelloWorldProducer::HelloWorldProducer(const std::string& brokerURI, int numMessages, bool useTopic, bool sessionTransacted) :
-        connection(NULL),
-        session(NULL),
-        destination(NULL),
-        producer(NULL),
+    HelloWorldProducer::HelloWorldProducer(std::string  brokerURI, int numMessages, bool useTopic, bool sessionTransacted) :
+        connection(nullptr),
+        session(nullptr),
+        destination(nullptr),
+        producer(nullptr),
         numMessages(numMessages),
         useTopic(useTopic),
         sessionTransacted(sessionTransacted),
-        brokerURI(brokerURI) {
+        brokerURI(std::move(brokerURI)) {
     }
 
     void HelloWorldProducer::close() {
@@ -56,7 +58,7 @@ using namespace std;
         try {
 
             // Create a ConnectionFactory
-            auto_ptr<ConnectionFactory> connectionFactory(
+            unique_ptr<ConnectionFactory> connectionFactory(
                 ConnectionFactory::createCMSConnectionFactory(brokerURI));
 
             // Create a Connection
@@ -88,7 +90,7 @@ using namespace std;
             string text = (string) "Hello world! from thread " + threadIdStr;
 
             for (int ix = 0; ix < numMessages; ++ix) {
-                std::auto_ptr<TextMessage> message(session->createTextMessage(text));
+                std::unique_ptr<TextMessage> message(session->createTextMessage(text));
                 message->setIntProperty("Integer", ix);
                 printf("Sent message #%d from thread %s\n", ix + 1, threadIdStr.c_str());
                 producer->send(message.get());
@@ -101,7 +103,7 @@ using namespace std;
 
     void HelloWorldProducer::cleanup() {
 
-        if (connection != NULL) {
+        if (connection != nullptr) {
             try {
                 connection->close();
             } catch (cms::CMSException& ex) {
@@ -112,13 +114,13 @@ using namespace std;
         // Destroy resources.
         try {
             delete destination;
-            destination = NULL;
+            destination = nullptr;
             delete producer;
-            producer = NULL;
+            producer = nullptr;
             delete session;
-            session = NULL;
+            session = nullptr;
             delete connection;
-            connection = NULL;
+            connection = nullptr;
         } catch (CMSException& e) {
             e.printStackTrace();
         }

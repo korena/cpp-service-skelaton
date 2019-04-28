@@ -32,4 +32,5 @@ target_include_directories(cms
 target_link_libraries(cms
         ${ACTIVEMQCPP_LIBRARIES}
         ${APR_LIBRARIES}
-        ${OPENSSL_LIBRARIES})
+        ${OPENSSL_LIBRARIES}
+        uuid)

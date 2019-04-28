@@ -58,6 +58,19 @@ such as openssl and some other libraries), if it works on my work computer by ru
 it should work the exact same way on my home computer, that's limited to Unix of course, cause none of my machines runs 
 Windows.
 
+## What depndencies aren't included in the project?
+
+This is not an extensive list, something might be missing here cause I'm not sure of all the dependencies that the third
+party libraries I'm using here require, I'll add more whenever I find them.
+
+for Activemq-cpp:
+- libuuid 
+- openssl
+- libcrypto
+
+for gRPC:
+ (Not yet sure, need to build in a clean machine to figure it out.)
+
 # How do I add a third party dependency?
 
 Read third_party/README.md

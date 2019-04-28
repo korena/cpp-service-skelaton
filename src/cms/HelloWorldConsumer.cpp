@@ -1,17 +1,19 @@
+#include <utility>
+
 #include "HelloWorldConsumer.hpp"
 #include "HelloWorldProducer.hpp"
 
-    HelloWorldConsumer::HelloWorldConsumer(const std::string& brokerURI, int numMessages, bool useTopic, bool sessionTransacted, int waitMillis) :
+    HelloWorldConsumer::HelloWorldConsumer(std::string  brokerURI, int numMessages, bool useTopic, bool sessionTransacted, int waitMillis) :
         latch(1),
         doneLatch(numMessages),
-        connection(NULL),
-        session(NULL),
-        destination(NULL),
-        consumer(NULL),
+        connection(nullptr),
+        session(nullptr),
+        destination(nullptr),
+        consumer(nullptr),
         waitMillis(waitMillis),
         useTopic(useTopic),
         sessionTransacted(sessionTransacted),
-        brokerURI(brokerURI) {
+        brokerURI(std::move(brokerURI)) {
     }
 
     void HelloWorldConsumer::run() {
@@ -28,7 +30,7 @@
             connection->setExceptionListener(this);
 
             // Create a Session
-            if (this->sessionTransacted == true) {
+            if (this->sessionTransacted) {
                 session = connection->createSession(cms::Session::SESSION_TRANSACTED);
             } else {
                 session = connection->createSession(cms::Session::AUTO_ACKNOWLEDGE);
@@ -69,10 +71,10 @@
 
         try {
             count++;
-            const cms::TextMessage* textMessage = dynamic_cast<const cms::TextMessage*> (message);
-            std::string text = "";
+            const auto* textMessage = dynamic_cast<const cms::TextMessage*> (message);
+            std::string text;
 
-            if (textMessage != NULL) {
+            if (textMessage != nullptr) {
                 text = textMessage->getText();
             } else {
                 text = "NOT A TEXTMESSAGE!";
@@ -102,7 +104,7 @@
     }
 
     void HelloWorldConsumer::cleanup() {
-        if (connection != NULL) {
+        if (connection != nullptr) {
             try {
                 connection->close();
             } catch (cms::CMSException& ex) {
@@ -113,13 +115,13 @@
         // Destroy resources.
         try {
             delete destination;
-            destination = NULL;
+            destination = nullptr;
             delete consumer;
-            consumer = NULL;
+            consumer = nullptr;
             delete session;
-            session = NULL;
+            session = nullptr;
             delete connection;
-            connection = NULL;
+            connection = nullptr;
         } catch (cms::CMSException& e) {
             e.printStackTrace();
         }

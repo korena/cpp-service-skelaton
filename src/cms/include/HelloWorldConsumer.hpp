@@ -46,7 +46,7 @@ private:
 
 public:
 
-    HelloWorldConsumer(const std::string& brokerURI, int numMessages, bool useTopic = false, bool sessionTransacted = false, int waitMillis = 30000);
+    HelloWorldConsumer(std::string  brokerURI, int numMessages, bool useTopic = false, bool sessionTransacted = false, int waitMillis = 30000);
 
     virtual ~HelloWorldConsumer() {
         cleanup();

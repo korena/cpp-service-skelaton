@@ -5,8 +5,9 @@ find_path(APR_INCLUDE_DIR
         PATHS ${APR_ROOT_DIR}/include/apr-1)
 
 find_library(APR_LIBRARY
-        NAMES libapr-1.a apr.exp libapr-1.0.dylib libapr-1.a libapr-1.dylib
-        PATHS ${APR_ROOT_DIR}/lib SHARED IMPORTED GLOBAL)
+        NAMES libapr-1.a
+        PATHS ${APR_ROOT_DIR}/lib
+        NO_DEFAULT_PATH)
 
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set LOGGING_FOUND to TRUE

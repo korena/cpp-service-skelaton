@@ -6,6 +6,7 @@ include(ExternalProject)
 set(CMAKE_CXX_STANDARD 14)
 
 set(Activemq-cpp_PREFIX 3.9.4)
+set(Apr_PREFIX 1.6.5) # dependency, used in config step, has to be built first!
 
 ExternalProject_Add(Activemq-cpp
         PREFIX ${Activemq-cpp_PREFIX}
@@ -13,7 +14,7 @@ ExternalProject_Add(Activemq-cpp
         GIT_TAG ${Activemq-cpp_PREFIX}
         UPDATE_COMMAND "" # do not f**king rebuild if not needed!
         PATCH_COMMAND ""
-        CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}
+        CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX} ${Apr_PREFIX}
         BUILD_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}
         INSTALL_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/install_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}
         # For some unknown reason (to me),
@@ -41,3 +42,10 @@ ExternalProject_Add_Step(Activemq-cpp chmodInstall
         COMMENT "chmod +x *.sh files to prepare for installation"
         DEPENDEES download # run chmodConfig after download
         )
+
+# Activemq-cpp
+ExternalProject_Get_Property(Activemq-cpp install_dir)
+set(Activemq-cpp_INST_PREFIX "${install_dir}")
+set_target_properties( Activemq-cpp
+        PROPERTIES
+        Activemq-cpp_INSTALL_PREFIX "${Activemq-cpp_INST_PREFIX}")
