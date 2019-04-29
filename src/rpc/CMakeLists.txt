@@ -31,16 +31,18 @@ add_custom_command(
         -I "${service_proto_path}" --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}" "${service_proto}"
         DEPENDS "${service_proto}")
 
-# Include generated *.pb.h files
-include_directories("${CMAKE_CURRENT_BINARY_DIR}"
-                     ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Targets greeter_[async_](server)
 foreach(_target
         greeter_server greeter_async_server)
-    add_executable(${_target} "server/${_target}.cpp"
+    add_library(${_target} "server/${_target}.cpp"
             ${service_proto_srcs}
             ${service_grpc_srcs})
+
+    target_include_directories(${_target}
+            PUBLIC "${CMAKE_CURRENT_BINARY_DIR}"
+            PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
     target_link_libraries(${_target}
             ${_GRPC_GRPCPP_UNSECURE}
             ${_PROTOBUF_LIBPROTOBUF})
@@ -49,9 +51,14 @@ endforeach()
 # Targets greeter_[async_](client)
 foreach(_target
         greeter_client greeter_async_client)
-    add_executable(${_target} "client/${_target}.cpp"
+    add_library(${_target} "client/${_target}.cpp"
             ${service_proto_srcs}
             ${service_grpc_srcs})
+
+    target_include_directories( ${_target}
+            PUBLIC "${CMAKE_CURRENT_BINARY_DIR}"
+            PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
     target_link_libraries(${_target}
             ${_GRPC_GRPCPP_UNSECURE}
             ${_PROTOBUF_LIBPROTOBUF})

@@ -1,13 +1,10 @@
 #include "include/Cms.hpp"
 
 
-int helloWorld(void) {
+int helloWorldCms() {
 
     activemq::library::ActiveMQCPP::initializeLibrary();
     {
-        std::cout << "=====================================================\n";
-        std::cout << "Starting the example:" << std::endl;
-        std::cout << "-----------------------------------------------------\n";
         std::string brokerURI =
                 "failover:(tcp://localhost:61616)";
 
@@ -47,9 +44,6 @@ int helloWorld(void) {
         producer.close();
 
         std::cout << "Time to completion = " << totalTime << " seconds." << std::endl;
-        std::cout << "-----------------------------------------------------\n";
-        std::cout << "Finished with the example." << std::endl;
-        std::cout << "=====================================================\n";
     }
     activemq::library::ActiveMQCPP::shutdownLibrary();
 

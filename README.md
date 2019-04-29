@@ -45,6 +45,10 @@ that you can set at the top of the root CMakeLists.txt file).
 
 Examples for using both Activemq-cpp and gRPC are part of the source code.
 
+## How do I run this?
+
+You need to install activemq broker locally, start it, then run main.
+
 ## Why are you using CMake this way??
 
 - I'd like to avoid having to treat my own code as an external project.

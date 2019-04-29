@@ -23,6 +23,6 @@
 #include "HelloWorldProducer.hpp"
 
 
-int helloWorld(void);
+int helloWorldCms(void);
 
 
