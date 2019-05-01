@@ -3,7 +3,7 @@ include(ExternalProject)
 ExternalProject_Add(c-ares
   PREFIX c-ares
   GIT_REPOSITORY https://github.com/c-ares/c-ares.git
-  GIT_TAG 3be1924221
+  GIT_TAG cares-1_15_0
   CMAKE_CACHE_ARGS
         -DCARES_SHARED:BOOL=OFF
         -DCARES_STATIC:BOOL=ON
@@ -15,7 +15,7 @@ ExternalProject_Add(c-ares
 ExternalProject_Add(protobuf
   PREFIX protobuf
   GIT_REPOSITORY https://github.com/protocolbuffers/protobuf.git
-  GIT_TAG 48cb18e5
+  GIT_TAG v3.7.1
   SOURCE_SUBDIR cmake
   CMAKE_CACHE_ARGS
         -Dprotobuf_BUILD_TESTS:BOOL=OFF
@@ -42,7 +42,7 @@ set(_FINDPACKAGE_PROTOBUF_CONFIG_DIR "${CMAKE_CURRENT_BINARY_DIR}/protobuf/lib/c
 ExternalProject_Add(grpc
   PREFIX grpc
   GIT_REPOSITORY https://github.com/grpc/grpc.git
-  GIT_TAG v1.15.0
+  GIT_TAG v1.20.1
   CMAKE_CACHE_ARGS
         -DgRPC_INSTALL:BOOL=ON
         -DgRPC_BUILD_TESTS:BOOL=OFF

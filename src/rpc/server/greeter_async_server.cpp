@@ -26,7 +26,7 @@
 
 #include "service.grpc.pb.h"
 
-#include "../include/greeter_async_server.h"
+#include "greeter_async_server.h"
 
 using grpc::Server;
 using grpc::ServerAsyncResponseWriter;
@@ -66,12 +66,21 @@ void ServerImpl::Run() {
     HandleRpcs();
 }
 
+void ServerImpl::quit() {
+    std::cout << "shutting down server ..." << std::endl;
+    ServerImpl::runFlag = false;
+    std::cout << "Cleaning up server resources" << std::endl;
+    server_->Shutdown();
+    // Always shutdown the completion queue after the server.
+    cq_->Shutdown();
+}
+
 
 // Take in the "service" instance (in this case representing an asynchronous
 // server) and the completion queue "cq" used for asynchronous communication
 // with the gRPC runtime.
 ServerImpl::CallData::CallData(Greeter::AsyncService *service, ServerCompletionQueue *cq)
-        : service_(service), cq_(cq), responder_(&ctx_), status_(CREATE) {
+        : service_{service}, cq_{cq}, responder_{&ctx_}, status_{CREATE} {
     // Invoke the serving logic right away.
     Proceed();
 }
@@ -116,14 +125,15 @@ void ServerImpl::HandleRpcs() {
     new CallData(&service_, cq_.get());
     void *tag;  // uniquely identifies a request.
     bool ok;
-    while (true) {
+    while (ServerImpl::runFlag) {
         // Block waiting to read the next event from the completion queue. The
         // event is uniquely identified by its tag, which in this case is the
         // memory address of a CallData instance.
         // The return value of Next should always be checked. This return value
         // tells us whether there is any kind of event or cq_ is shutting down.
         GPR_ASSERT(cq_->Next(&tag, &ok));
-        GPR_ASSERT(ok);
-        static_cast<CallData *>(tag)->Proceed();
+        if (ok) {
+            static_cast<CallData *>(tag)->Proceed();
+        }
     }
 }

@@ -4,6 +4,7 @@
 #include <memory>
 #include <iostream>
 #include <string>
+#include <cstdbool>
 #include <thread>
 
 #include <grpcpp/grpcpp.h>
@@ -28,7 +29,12 @@ public:
     // There is no shutdown handling in this code.
     void Run();
 
+    void quit();
+
 private:
+    // handle to quit server loop
+    bool runFlag{true};
+
     // Class encompassing the state and logic needed to serve a request.
     class CallData {
     public:
