@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 
 USAGE='Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}'
 
@@ -38,6 +39,6 @@ cd "${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq-cpp/activemq
 ${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq\-cpp/activemq\-cpp/autogen.sh
 
 # Now run configure with all the stuff around it ...
-${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq\-cpp/activemq\-cpp/configure --prefix=${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}
---with-apr=${CMAKE_CURRENT_BINARY_DIR}/${Apr_PREFIX}/src/Apr
+${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq\-cpp/activemq\-cpp/configure --prefix=${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX} \
+--with-apr=${CMAKE_CURRENT_BINARY_DIR}/../Apr/${Apr_PREFIX}
 exit 0
