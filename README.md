@@ -34,8 +34,13 @@ the process of building the whole project is no different than building regular 
 because of some trickery in the way the build works, you simply create your build directory, cd into it, and run:
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=${BUILD-TYPE} ${path-to-cpp-service-skeleton-source}
+cmake -DCMAKE_BUILD_TYPE=${BUILD-TYPE} \
+${path-to-cpp-service-skeleton-source} \
+-DCMAKE_C_COMPILER=<path to your c compiler, eg /usr/local/bin/gcc-9> \
+-DCMAKE_CXX_COMPILER=<path to your c++ compiler, eg /usr/local/bin/g++-9> \
+-G "CodeBlocks - Unix Makefiles"
 ```
+BUILD-TYPE = Release|Debug
 
 This will take a serious amount of time (go make yourself a cup of coffee and drink it kind of serious, like 40 minutes
 on a maxed out specs 2017 Macbook pro) the first time you build, because it will download the internet, and build the 
@@ -66,6 +71,10 @@ Windows.
 
 This is not an extensive list, something might be missing here cause I'm not sure of all the dependencies that the third
 party libraries I'm using here require, I'll add more whenever I find them.
+for Apr:
+- pyenv 
+> pyenv is not really necessary if you have python 2.7 installed, 
+> but you'd have to modify the shell scripts in third\_party to avoid using it if you don't want to.
 
 for Activemq-cpp:
 - libuuid 
@@ -75,6 +84,7 @@ for Activemq-cpp:
 for gRPC:
  (Not yet sure, need to build in a clean machine to figure it out.)
 
+stuff I used for building:
 # How do I add a third party dependency?
 
 Read third_party/README.md
