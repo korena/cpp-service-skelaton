@@ -1,7 +1,7 @@
 add_executable(jsonTest jsonTest.cpp)
 
 find_package(GTest CONFIG REQUIRED)
-find_package(rapidJSON CONFIG REQUIRED)
+find_package(RapidJSON CONFIG REQUIRED)
 
 if(GTest_FOUND)
     message(STATUS "using GTest ${GTest_VERSION}")

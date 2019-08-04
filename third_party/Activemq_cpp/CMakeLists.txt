@@ -5,12 +5,12 @@ include(ExternalProject)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(Activemq-cpp_PREFIX 3.9.4)
+set(Activemq-cpp_PREFIX activemq-cpp-3.9.5)
 set(Apr_PREFIX 1.6.5) # dependency, used in config step, has to be built first!
 
 ExternalProject_Add(Activemq-cpp
         PREFIX ${Activemq-cpp_PREFIX}
-        GIT_REPOSITORY https://github.com/korena/activemq-cpp.git
+        GIT_REPOSITORY https://github.com/apache/activemq-cpp.git
         GIT_TAG ${Activemq-cpp_PREFIX}
         UPDATE_COMMAND "" # do not f**king rebuild if not needed!
         PATCH_COMMAND ""

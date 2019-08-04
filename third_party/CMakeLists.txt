@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 3.12)
 
+project(service_thirdParty)
+
 message(STATUS "Pre-processing third party libraries")
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Apr)

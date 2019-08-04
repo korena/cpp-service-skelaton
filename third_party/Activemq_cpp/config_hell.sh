@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+set -e
 
 USAGE='Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}'
 
@@ -28,8 +28,8 @@ Apr_PREFIX=${3}
 # Deal with python setup (set to 2.7), this requires pyenv to be installed, cause it seems like the most reasonable
 # python version hell manager around these days ...
 eval "$(pyenv init -)"
-pyenv install -s 2.7.10
-export PYENV_VERSION=2.7.10
+pyenv install -s 2.7.13
+export PYENV_VERSION=2.7.13
 
 python --version
 

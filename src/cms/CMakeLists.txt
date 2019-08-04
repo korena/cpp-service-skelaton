@@ -4,7 +4,7 @@ add_library(cms Cms.cpp HelloWorldConsumer.cpp HelloWorldProducer.cpp)
 
 find_package(OpenSSL REQUIRED)
 find_package(APR MODULE REQUIRED)
-find_package(ACTIVEMQCPP MODULE REQUIRED)
+find_package(ActiveMqCpp MODULE REQUIRED)
 
 if (NOT ACTIVEMQCPP_FOUND)
     message(FATAL_ERROR "Package ACTIVEMQCPP not found")
