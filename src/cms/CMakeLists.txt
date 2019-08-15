@@ -2,6 +2,10 @@
 
 add_library(cms Cms.cpp HelloWorldConsumer.cpp HelloWorldProducer.cpp)
 
+
+find_package(PkgConfig REQUIRED)
+pkg_search_module(UUID REQUIRED uuid)
+
 find_package(OpenSSL REQUIRED)
 find_package(APR MODULE REQUIRED)
 find_package(ActiveMqCpp MODULE REQUIRED)
@@ -24,6 +28,9 @@ if( OpenSSL_FOUND )
     message(STATUS "Using OpenSSL ${OPENSSL_VERSION}")
 endif (OpenSSL_FOUND)
 
+message( STATUS "Using uuid include directory: ${UUID_INCLUDE_DIRS}")
+message( STATUS "Using uuid lib directory: ${UUID_LIBRARY_DIRS}")
+
 target_include_directories(cms
         PUBLIC ${ACTIVEMQCPP_INCLUDE_DIRS}
         PUBLIC ${APR_INCLUDE_DIRS}
@@ -33,4 +40,4 @@ target_link_libraries(cms
         ${ACTIVEMQCPP_LIBRARIES}
         ${APR_LIBRARIES}
         ${OPENSSL_LIBRARIES}
-        uuid)
+        ${UUID_LIBRARY_DIRS}/libuuid.a)

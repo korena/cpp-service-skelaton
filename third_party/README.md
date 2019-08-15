@@ -36,7 +36,7 @@ your library's specific build instructions to fetch it from somewhere.
 
 ## 2. CMakeLists.txt file, you must write
 Create a CMakeLists.txt file in the library's directory, and write your externalProject commands to build it, you
-can see `third_party/gRPC/CMakeLists.txt` for an example of a CMake friendly library, and 
+can see `third_party/zlib/CMakeLists.txt` for an example of a CMake friendly library, and 
 `third_party/Activemq_cpp/CMakeLists.txt` for an ugly autoconf example. You're not limited to this, but understanding 
 both those examples should lead you anywhere you want to go, with a bit of CMake RTFM-ing of course.
 
@@ -44,6 +44,14 @@ both those examples should lead you anywhere you want to go, with a bit of CMake
 
 Add a `add_subdirectory()` entry to `third_party/CMakeLists.txt` so it will pick up and process your library's build 
 instructions.
+Note that the order of things matter, take the example of zlib and Apr, `third_party/Apr/CMakeLists.txt` needs to pass
+an argument called `local_zlib_INSTALL_PREFIX` to Apr's config script, so this line:
+ `get_target_property(local_zlib_INSTALL_PREFIX local_zlib local_zlib_INSTALL_PREFIX)`
+needs to appear in third_party/CMakeLists.txt BEFORE the line `add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Apr)` , so
+we it would be defined when Apr's `third_party/Apr/CMakeLists.txt` is executed. 
+Now where does `local_zlib_INSTALL_PREFIX` come from? Well, it comes from executing `third_party/zlib/CMakeLists.txt`,
+which is why the line `add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/zlib)` appears BEFORE the line 
+`get_target_property(local_zlib_INSTALL_PREFIX local_zlib local_zlib_INSTALL_PREFIX)` in `third_party/CMakeLists.txt`.
 
 ## 4. For find_package command, you must prepare
 
