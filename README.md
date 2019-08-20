@@ -42,6 +42,19 @@ ${path-to-cpp-service-skeleton-source} \
 ```
 BUILD-TYPE = Release|Debug
 
+You now have a proper Makefile in your build directory, you can now run make in that directory:
+
+```bash
+make service
+```
+
+Which will build an executable called `service` in you build directory, that's your executable like:
+```bash
+service <number>
+```
+The `<number>` is anything you want, it will be used to demo the use of a configured Maths function to demonstrate
+pre-processor define based compilation.
+
 This will take a serious amount of time (go make yourself a cup of coffee and drink it kind of serious, like 40 minutes
 on a maxed out specs 2017 Macbook pro) the first time you build, because it will download the internet, and build the 
 third party libraries used to support basic communication stuff, but once you've done that, you will no longer need to 
@@ -52,7 +65,7 @@ Examples for using both Activemq-cpp and gRPC are part of the source code.
 
 ## How do I run this?
 
-You need to install activemq broker locally, start it, then run main.
+You need to install activemq broker locally, start it, then run executable service.
 
 ## Why are you using CMake this way??
 
