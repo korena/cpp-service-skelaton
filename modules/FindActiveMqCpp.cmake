@@ -7,7 +7,7 @@
 
 find_path(ACTIVEMQCPP_INCLUDE_DIR
         NAMES decaf/lang/Thread.h
-        PATHS ${ACTIVEMQCPP_ROOT_DIR}/include/activemq-cpp-3.9.4)
+        PATHS ${ACTIVEMQCPP_ROOT_DIR}/include/activemq-cpp-3.9.5)
 message(STATUS "ACTIVEMQCPP_ROOT_DIR: ${ACTIVEMQCPP_ROOT_DIR}")
 
 find_library(ACTIVEMQCPP_LIBRARY NAMES libactivemq-cpp.a

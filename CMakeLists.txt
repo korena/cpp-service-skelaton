@@ -12,12 +12,11 @@ set(CMAKE_RULE_MESSAGES:BOOL OFF)
 
 # should we force third party libraries build? (defaults to NO)
 SET(FORCE_THIRD_PARTY_BUILD OFF)
-option(FORCE_THIRD_PARTY_BUILD "Force build of third party libraries" NO)
+option(FORCE_THIRD_PARTY_BUILD "Force build of third party libraries" OFF)
 
 # should we use our own math functions?
 option (USE_MYMATH
         "Use service provided math implementation" ON)
-
 
 set(CMAKE_CXX_STANDARD 14)
 

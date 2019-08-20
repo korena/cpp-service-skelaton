@@ -16,8 +16,8 @@
 #include <cms/MapMessage.h>
 #include <cms/ExceptionListener.h>
 #include <cms/MessageListener.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include <memory>
 

@@ -1,4 +1,5 @@
 # ignore build directories
+build*
 cmake-*
 # ignore .idea configurations (should I?)
 .idea

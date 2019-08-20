@@ -10,7 +10,7 @@ ExternalProject_Add(Apr
         GIT_TAG ${Apr_PREFIX}
         UPDATE_COMMAND "" # do not f**king rebuild if not needed!
         PATCH_COMMAND ""
-        CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr_PREFIX}
+        CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr_PREFIX} ${local_zlib_INSTALL}
         BUILD_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr_PREFIX}
         INSTALL_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/install_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr_PREFIX}
         # For some unknown reason (to me),

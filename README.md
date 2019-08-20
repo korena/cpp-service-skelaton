@@ -34,8 +34,13 @@ the process of building the whole project is no different than building regular 
 because of some trickery in the way the build works, you simply create your build directory, cd into it, and run:
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=${BUILD-TYPE} ${path-to-cpp-service-skeleton-source}
+cmake -DCMAKE_BUILD_TYPE=${BUILD-TYPE} \
+${path-to-cpp-service-skeleton-source} \
+-DCMAKE_C_COMPILER=<path to your c compiler, eg /usr/local/bin/gcc-9> \
+-DCMAKE_CXX_COMPILER=<path to your c++ compiler, eg /usr/local/bin/g++-9> \
+-G "CodeBlocks - Unix Makefiles"
 ```
+BUILD-TYPE = Release|Debug
 
 This will take a serious amount of time (go make yourself a cup of coffee and drink it kind of serious, like 40 minutes
 on a maxed out specs 2017 Macbook pro) the first time you build, because it will download the internet, and build the 
@@ -66,15 +71,25 @@ Windows.
 
 This is not an extensive list, something might be missing here cause I'm not sure of all the dependencies that the third
 party libraries I'm using here require, I'll add more whenever I find them.
+for Apr:
+- openssl (needs to be pre-installed)
+- readline (needs to be pre-installed)
+- zlib (zlib, readline and openssl are required to build python 2.7.13, which is required to build Apr, zlib is used 
+in this project to demo the build process of a component that is needed by a third party library, but not directly by 
+the project, so it's not necessary to have as a pre-installed dependency for this skeleton, but building it is a pain 
+and in a real project, you want to have it as a pre-requisite and move on with your life)
+- pyenv (needs to be pre-installed, it's used to install python 2.7.13)
 
 for Activemq-cpp:
-- libuuid 
-- openssl
-- libcrypto
+- libuuid (needs to be pre-installed)
+- openssl (needs to be pre-installed)
+- readline (needs to be pre-installed)
+- libcrypto (needs to be pre-installed)
 
 for gRPC:
  (Not yet sure, need to build in a clean machine to figure it out.)
 
+stuff I used for building:
 # How do I add a third party dependency?
 
 Read third_party/README.md

@@ -5,16 +5,15 @@ include(ExternalProject)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(Activemq-cpp_PREFIX 3.9.4)
-set(Apr_PREFIX 1.6.5) # dependency, used in config step, has to be built first!
+set(Activemq-cpp_PREFIX activemq-cpp-3.9.5)
 
 ExternalProject_Add(Activemq-cpp
         PREFIX ${Activemq-cpp_PREFIX}
-        GIT_REPOSITORY https://github.com/korena/activemq-cpp.git
+        GIT_REPOSITORY https://github.com/apache/activemq-cpp.git
         GIT_TAG ${Activemq-cpp_PREFIX}
         UPDATE_COMMAND "" # do not f**king rebuild if not needed!
         PATCH_COMMAND ""
-        CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX} ${Apr_PREFIX}
+        CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX} ${Apr_INSTALL_PREFIX} ${local_zlib_INSTALL}
         BUILD_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}
         INSTALL_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/install_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX}
         # For some unknown reason (to me),
