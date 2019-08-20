@@ -48,7 +48,7 @@ Note that the order of things matter, take the example of zlib and Apr, `third_p
 an argument called `local_zlib_INSTALL_PREFIX` to Apr's config script, so this line:
  `get_target_property(local_zlib_INSTALL_PREFIX local_zlib local_zlib_INSTALL_PREFIX)`
 needs to appear in third_party/CMakeLists.txt BEFORE the line `add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Apr)` , so
-we it would be defined when Apr's `third_party/Apr/CMakeLists.txt` is executed. 
+it would be defined when Apr's `third_party/Apr/CMakeLists.txt` is executed. 
 Now where does `local_zlib_INSTALL_PREFIX` come from? Well, it comes from executing `third_party/zlib/CMakeLists.txt`,
 which is why the line `add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/zlib)` appears BEFORE the line 
 `get_target_property(local_zlib_INSTALL_PREFIX local_zlib local_zlib_INSTALL_PREFIX)` in `third_party/CMakeLists.txt`.

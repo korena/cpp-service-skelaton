@@ -67,29 +67,29 @@ such as openssl and some other libraries), if it works on my work computer by ru
 it should work the exact same way on my home computer, that's limited to Unix of course, cause none of my machines runs 
 Windows.
 
-## What depndencies aren't included in the project?
+## What dependencies aren't included in the project?
 
 This is not an extensive list, something might be missing here cause I'm not sure of all the dependencies that the third
 party libraries I'm using here require, I'll add more whenever I find them.
 for Apr:
 - openssl (needs to be pre-installed)
 - readline (needs to be pre-installed)
-- zlib (zlib, readline and openssl are required to build python 2.7.13, which is required to build Apr, zlib is used 
-in this project to demo the build process of a component that is needed by a third party library, but not directly by 
-the project, so it's not necessary to have as a pre-installed dependency for this skeleton, but building it is a pain 
-and in a real project, you want to have it as a pre-requisite and move on with your life)
+- zlib (no need to pre-install)
+
+zlib, readline and openssl are required to build python 2.7.13, which is required to build Apr, zlib is used in this 
+project to demo the build process of a component that is needed by a third party library,
+but not directly by the project, so it's not necessary to have as a pre-installed dependency for this skeleton.
+Note that building it is a pain, so in a real project, you want to have it as a pre-requisite and move on with your life
+
 - pyenv (needs to be pre-installed, it's used to install python 2.7.13)
 
 for Activemq-cpp:
-- libuuid (needs to be pre-installed)
+- pkg-config (needs to be pre-installed, for demonstration, remove references from cms/CMakeLists.txt to ignore)
+- libuuid (needs to be pre-installed, for demonstration, remove references from cms/CMakeLists.txt to ignore)
 - openssl (needs to be pre-installed)
 - readline (needs to be pre-installed)
 - libcrypto (needs to be pre-installed)
 
-for gRPC:
- (Not yet sure, need to build in a clean machine to figure it out.)
-
-stuff I used for building:
 # How do I add a third party dependency?
 
 Read third_party/README.md
