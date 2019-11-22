@@ -2,7 +2,7 @@
 set -e
 set -x
 
-USAGE="Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX} ${Apr_INSTALL_PREFIX} ${local_zlib_INSTALL}"
+USAGE='Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Activemq-cpp_PREFIX} ${Apr_INSTALL_PREFIX} ${local_zlib_INSTALL}'
 
 if [[ -z "$1" ]]; then
   echo "Missing CMAKE_CURRENT_BINARY_DIR (first argument)"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-USAGE="Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr-util_PREFIX}"
+USAGE='Usage: config_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr-util_PREFIX}'
 
 if [[ -z "$1" ]]; then
   echo "Missing CMAKE_CURRENT_BINARY_DIR (first argument)"
