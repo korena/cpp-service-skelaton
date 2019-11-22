@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-USAGE='Usage: build_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr_PREFIX}'
+USAGE="Usage: build_hell.sh ${CMAKE_CURRENT_BINARY_DIR} ${Apr_PREFIX}"
 
 if [[ -z "$1" ]]; then
   echo "Missing CMAKE_CURRENT_BINARY_DIR (first argument)"
@@ -17,5 +17,5 @@ fi
 CMAKE_CURRENT_BINARY_DIR=${1}
 Apr_PREFIX=${2}
 
-make -C ${CMAKE_CURRENT_BINARY_DIR}/${Apr_PREFIX}/src/Apr install
+make -C "${CMAKE_CURRENT_BINARY_DIR}"/"${Apr_PREFIX}"/src/Apr install
 exit 0
