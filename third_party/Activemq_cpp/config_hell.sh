@@ -45,11 +45,10 @@ pyenv local 2.7.13
 python --version
 
 # Run buildconfig as stated in documentation
-cd "${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq-cpp/activemq-cpp"
-
-${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq\-cpp/activemq\-cpp/autogen.sh
+cd "${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq-cpp/activemq-cpp" && \
+"${CMAKE_CURRENT_BINARY_DIR}"/"${Activemq_cpp_PREFIX}"/src/Activemq\-cpp/activemq\-cpp/autogen.sh
 
 # Now run configure with all the stuff around it ...
-${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX}/src/Activemq\-cpp/activemq\-cpp/configure --prefix=${CMAKE_CURRENT_BINARY_DIR}/${Activemq_cpp_PREFIX} \
---with-apr=${Apr_INSTALL_PREFIX}
+"${CMAKE_CURRENT_BINARY_DIR}"/"${Activemq_cpp_PREFIX}"/src/Activemq\-cpp/activemq\-cpp/configure --prefix="${CMAKE_CURRENT_BINARY_DIR}"/"${Activemq_cpp_PREFIX}" \
+--with-apr="${Apr_INSTALL_PREFIX}"
 exit 0

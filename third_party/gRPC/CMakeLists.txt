@@ -24,15 +24,6 @@ ExternalProject_Add(protobuf
         -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/protobuf
 )
 
-# Builds zlib project from the git submodule.
-ExternalProject_Add(zlib
-  PREFIX zlib
-  GIT_REPOSITORY https://github.com/madler/zlib.git
-  GIT_TAG cacf7f1d4e
-  CMAKE_CACHE_ARGS
-        -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/zlib
-)
-
 # the location where protobuf-config.cmake will be installed varies by platform
 set(_FINDPACKAGE_PROTOBUF_CONFIG_DIR "${CMAKE_CURRENT_BINARY_DIR}/protobuf/lib/cmake/protobuf")
 
@@ -56,7 +47,7 @@ ExternalProject_Add(grpc
         -DgRPC_SSL_PROVIDER:STRING=package
         ${_CMAKE_ARGS_OPENSSL_ROOT_DIR}
         -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/grpc
-  DEPENDS c-ares protobuf zlib
+  DEPENDS c-ares protobuf local_zlib
 )
 
 
@@ -67,12 +58,6 @@ set_target_properties( protobuf
         PROPERTIES
         protobuf_INSTALL_PREFIX "${protobuf_INST_PREFIX}")
 
-#zlib (internal, not system one ma!)
-ExternalProject_Get_Property(zlib install_dir)
-set(zlib_INST_PREFIX "${install_dir}")
-set_target_properties( zlib
-        PROPERTIES
-        zlib_INSTALL_PREFIX "${zlib_INST_PREFIX}")
 # c-ares
 ExternalProject_Get_Property(c-ares install_dir)
 set(c-ares_INST_PREFIX "${install_dir}")
