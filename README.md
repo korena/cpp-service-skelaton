@@ -85,9 +85,11 @@ Windows.
 This is not an extensive list, something might be missing here cause I'm not sure of all the dependencies that the third
 party libraries I'm using here require, I'll add more whenever I find them.
 for Apr:
-- openssl (needs to be pre-installed)
+- openssl (openssl-dev in ubuntu) (needs to be pre-installed)
 - readline (needs to be pre-installed)
 - zlib (no need to pre-install)
+- Other stuff .. the build will fail if you miss some of the pre-requisites, but reading the logs and installing whatever
+is missing isn't that hard really.
 
 zlib, readline and openssl are required to build python 2.7.13, which is required to build Apr, zlib is used in this 
 project to demo the build process of a component that is needed by a third party library,
